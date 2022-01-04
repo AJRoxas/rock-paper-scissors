@@ -5,5 +5,76 @@
         <title>Rock Paper Scissors</title>
     </head>
     <body>
+        <script>
+            // let ROCK = 1
+            // let PAPER = 2
+            // let SCISSORS = 3
+
+            function computerPlay() {
+                
+                let result = Math.floor(Math.random()*3) + 1;
+
+                switch(result) {
+                    case 1:
+                        return "rock";
+                    case 2:
+                        return "paper";
+                    case 3:
+                        return "scissors";
+                }
+            }
+
+            function playRound(playerSelection, computerSelection) {
+                
+                let playerSelectionLower = playerSelection.toLowerCase();
+
+                switch (playerSelectionLower) {
+                    case "rock":
+                        return checkWin(playerSelectionLower, computerSelection, "scissors", "paper");
+                    case "paper":
+                        return checkWin(playerSelectionLower, computerSelection, "rock", "scissors");
+                    case "scissors":
+                        return checkWin(playerSelectionLower, computerSelection, "paper", "rock");
+                    default:
+                        return "You lose! Invalid player selection";
+                }
+            }
+
+            function checkWin(playerSelection, computerSelection, playerWinCondition, playerLoseCondition) {
+                
+                if (computerSelection == playerWinCondition) {
+                    return `You win! ${playerSelection} beats ${computerSelection};`
+                } else if (computerSelection == playerLoseCondition) {
+                    return `You lose! ${playerSelection} loses to ${computerSelection};`
+                } else {
+                    return `Draw! ${playerSelection} ties with ${computerSelection}`;
+                }
+            }
+
+            function game() {
+                
+                let playerScore = 0;
+                let computerScore = 0;
+
+                for (let i = 0; i < 5; i++){
+                    
+                    let playerResponse = prompt("Choose: rock, paper, or scrissors!", '');
+
+                    let result = playRound(playerResponse, computerPlay())
+
+                    console.log(result);
+                    
+                    if (result.includes("win")) {
+                        playerScore++;
+                    } else if (result.includes("lose")) {
+                        computerScore++;
+                    }
+
+                    console.log(`End of Round!\nPlayer: ${playerScore}\nComputer ${computerScore}`);
+                }
+
+                console.log(`Game Finished!\nPlayer: ${playerScore}\nComputer ${computerScore}`);
+            }
+        </script>
     </body>
 </html>
